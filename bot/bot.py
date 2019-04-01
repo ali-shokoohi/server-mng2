@@ -10,7 +10,7 @@ import logging
 from telegram.ext import Updater, CommandHandler
 
 #Get API_TOKEN from secrets file
-from secrets import TOKEN
+from .secrets import TOKEN
 
 # Enable logging
 log_location = "logs/bot.log"
