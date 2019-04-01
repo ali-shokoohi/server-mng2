@@ -7,6 +7,9 @@ Some description about this bot ...
 
 from telegram.ext import Updater, CommandHandler
 
+#Get API_TOKEN from secrets file
+from secrets import TOKEN
+
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
 def start(bot, update):
@@ -22,7 +25,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("tOKEN")
+    updater = Updater(TOKEN)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
