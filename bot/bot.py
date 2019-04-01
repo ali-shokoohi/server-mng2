@@ -5,10 +5,19 @@
 Some description about this bot ...
 """
 
+import logging
+
 from telegram.ext import Updater, CommandHandler
 
 #Get API_TOKEN from secrets file
 from secrets import TOKEN
+
+# Enable logging
+log_location = "logs/bot.log"
+logging.basicConfig(filename=log_location, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+                    level=logging.INFO)
+
+logger = logging.getLogger(__name__)
 
 # Define a few command handlers. These usually take the two arguments bot and
 # update. Error handlers also receive the raised TelegramError object in error.
@@ -19,6 +28,9 @@ def start(bot, update):
     #Say hello to chat_id
     bot.send_message(chat_id=chat_id, text="Hello dear")
 
+def error(bot, update, error):
+    """Log Errors caused by Updates."""
+    logger.warning('Update "%s" caused error "%s"', update, error)
 
 def main():
     """Run bot."""
@@ -32,6 +44,9 @@ def main():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
+
+    # log all errors
+    dp.add_error_handler(error)
 
     # Start the Bot
     updater.start_polling()
